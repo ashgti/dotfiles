@@ -1,3 +1,5 @@
 [user]
 	name = John Harrison
 	email = ash@greaterthaninfinity.com
+[core]
+	editor = vim
