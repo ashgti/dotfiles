@@ -111,12 +111,13 @@ set background=dark
 vnoremap < <gv
 vnoremap > >gv
 
+colorscheme cobalt
+
 if has('gui_running')
     if has('mac')
         set guifont=Menlo:h14
         set fuoptions=maxvert,maxhorz
     endif
-    colorscheme molokai
     set background=dark
 
     set go-=T
