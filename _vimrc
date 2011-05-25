@@ -50,6 +50,7 @@ map <leader>af :AckFile<CR>
 
 " Set up command for NERDTree
 map <leader>n :NERDTree<CR>
+let NERDTreeIgnore=['.vim$','\~$', '.*\.pyc$']
 
 " Toggle Pastemode
 set pastetoggle=<F2>
@@ -126,3 +127,10 @@ if has('gui_running')
 
     highlight SpellBad term=underline gui=undercurl guisp=Orange
 endif
+
+
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+
+map <leader>td <Plug>TaskList
+map <leader>m <Plug>MakeGreen
