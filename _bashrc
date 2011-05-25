@@ -1,12 +1,3 @@
-export PATH="/Users/john/Projects/rakudo/parrot_install/bin:${PATH}"
-export PATH="/Users/john/Projects/local/bin:/opt/local/bin:/opt/local/sbin:${PATH}"
-export PATH="/Users/john/.cabal/bin:${PATH}"
-export PATH="$PATH:/Users/john/Projects/racket-5.1/bin"
-
-export CPATH=/opt/local/include
-export LIBRARY_PATH=/opt/local/lib
-export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:/usr/lib:/opt/local/lib
-
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -105,27 +96,42 @@ alias r='fc -s'
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
+if [ -f /etc/bash_completion ]; then
+      . /etc/bash_completion
+fi
 if [ -f /opt/local/etc/bash_completion ]; then
       . /opt/local/etc/bash_completion
 fi
 
-export GOROOT=/Users/john/Projects/go
-export GOOS=darwin
-export GOARCH=amd64
-export GOBIN=$GOROOT/gobin
-export PATH=$PATH:$GOBIN
+if [ "$UNAME" = Darwin ]; then
+    export PATH="/Users/john/Projects/rakudo/parrot_install/bin:${PATH}"
+    export PATH="/Users/john/Projects/local/bin:/opt/local/bin:/opt/local/sbin:${PATH}"
+    export PATH="/Users/john/.cabal/bin:${PATH}"
+    export PATH="$PATH:/Users/john/Projects/racket-5.1/bin"
 
-source /Users/john/Projects/ros/diamondback/setup.bash
+    export CPATH=/opt/local/include
+    export LIBRARY_PATH=/opt/local/lib
+    export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:/usr/lib:/opt/local/lib
 
-export ROS_PACKAGE_PATH="${ROS_PACKAGE_PATH}:/Users/john/Projects/au-automow:/Users/john/Projects/wwoodall-ros-pkg:/Users/john/Projects/gps_umd:/Users/john/Projects/dynamic_voronoi"
+    source /Users/john/Projects/ros/diamondback/setup.bash
+
+    export GOROOT=/Users/john/Projects/go
+    export GOOS=darwin
+    export GOARCH=amd64
+    export GOBIN=$GOROOT/gobin
+    export PATH=$PATH:$GOBIN
+
+    export ROS_PACKAGE_PATH="${ROS_PACKAGE_PATH}:/Users/john/Projects/au-automow:/Users/john/Projects/wwoodall-ros-pkg:/Users/john/Projects/gps_umd:/Users/john/Projects/dynamic_voronoi"
+fi
 
 if [ -s "$HOME/.bashscripts/ps1_functions.sh" ]; then
     source "$HOME/.bashscripts/ps1_functions.sh" 
     ps1_set --prompt ∫ --notime --noseparator --screen_identifer 'S\:\ '
 fi
 
-source ~/perl5/perlbrew/etc/bashrc
-
+if [ -f ~/perl5/perlbrew/etc/bashrc ]; then
+    source ~/perl5/perlbrew/etc/bashrc
+fi
 
 # Python interactive shell stuff
 PYTHONSTARTUP=~/.pythonrc
