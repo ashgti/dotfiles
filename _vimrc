@@ -154,7 +154,6 @@ call pathogen#helptags()
 
 map <leader>td <Plug>TaskList
 map <leader>m <Plug>MakeGreen
-adsfdsafdsa
 
 " Only do this part when compiled with support for autocommands
 if has("autocmd")
