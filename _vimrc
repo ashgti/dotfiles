@@ -10,6 +10,9 @@ set t_ti= t_te=
 " Show line numbers
 set number
 
+" Move the cursor past the end of the line by 1 spot
+set virtualedit=onemore
+
 " Show $ at end of line and trailing space as ~
 set lcs=tab:\ \ ,eol:$,trail:~,extends:>,precedes:<
 set novisualbell  " No blinking .
@@ -35,22 +38,38 @@ syntax on
 " Set leader to comma
 let mapleader = ","
 
-" Set up commands for FuzzyFinder and FuzzyFinderTextMate
-map <leader>g :FufFile<CR>
-map <leader>d :FufDir<CR>
-map <leader>f :FufFile<CR>
-map <leader>b :FufBuffer<CR>
-map <leader>r :FufMruFile<CR>
+" Rainbow
+nmap <leader>R :RainbowParenthesesToggle<CR>
+
 map <leader>a :Ack<CR>
 map <leader>af :AckFile<CR>
 
-" Fuzzy options
-" let g:fuzzy_ignore = "*.log"
-" let g:fuzzy_matching_limit = 70
-
 " Set up command for NERDTree
-map <leader>n :NERDTree<CR>
+map <leader>n :NERDTreeToggle<CR>
 let NERDTreeIgnore=['.vim$','\~$', '.*\.pyc$']
+
+" CommandT options
+map <leader>f :CommandT<CR>
+
+let g:pep8map='<leader>8'
+
+let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplMapWindowNavArrows= 1
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplModSelTarget = 1
+
+" Yankring
+let g:yankring_history_dir = '~/.vim/tmp/'
+nmap <leader>y :YRShow<cr>
+
+" Easy buffer navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+" For when I forget sudo
+cmap w!! w !sudo tee % >/dev/null
 
 " Toggle Pastemode
 set pastetoggle=<F2>
@@ -95,7 +114,7 @@ set list
 
 " Omni Completion
 " *************************************************************
-autocmd FileType html :set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
@@ -135,3 +154,14 @@ call pathogen#helptags()
 
 map <leader>td <Plug>TaskList
 map <leader>m <Plug>MakeGreen
+adsfdsafdsa
+
+" Only do this part when compiled with support for autocommands
+if has("autocmd")
+  " When editing a file, always jump to the last cursor position
+  autocmd BufReadPost *
+  \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+  \   exe "normal g'\"" |
+  \ endif
+endif
+
