@@ -55,6 +55,6 @@
 [submodule "_vim/bundle/yankring"]
 	path = _vim/bundle/yankring
 	url = https://github.com/vim-scripts/YankRing.vim.git
-[submodule "_vim/bundle/vimcobaltcolourscheme"]
-	path = _vim/bundle/vimcobaltcolourscheme
+[submodule "_vim/colors"]
+	path = _vim/colors
 	url = https://github.com/dterei/VimCobaltColourScheme.git

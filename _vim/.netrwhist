@@ -1,9 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/Users/john/Projects/nq-nqp-rx'
-let g:netrw_dirhist_2='/Users/john/Projects/rakudo'
-let g:netrw_dirhist_3='/Users/john/Projects/nq-nqp-rx'
-let g:netrw_dirhist_4='/Users/john/Projects/lorito-extras'
-let g:netrw_dirhist_5='/Users/john/Projects/try.rakudo.org'
-let g:netrw_dirhist_6='/Users/john/Projects/au-automow/au_automow_drivers/magellan_dg14'
-let g:netrw_dirhist_7='/Users/john/Projects/au-automow/au_automow_common/automow_planning/ref'

@@ -38,6 +38,10 @@ syntax on
 " Set leader to comma
 let mapleader = ","
 
+" Pathogen is for finding bundles
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+
 " Rainbow
 nmap <leader>R :RainbowParenthesesToggle<CR>
 
@@ -147,10 +151,6 @@ if has('gui_running')
 
     highlight SpellBad term=underline gui=undercurl guisp=Orange
 endif
-
-
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
 
 map <leader>td <Plug>TaskList
 map <leader>m <Plug>MakeGreen

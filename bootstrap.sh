@@ -17,7 +17,8 @@ git submodule add https://github.com/vim-scripts/The-NERD-tree.git _vim/bundle/n
 git submodule add https://github.com/sontek/rope-vim.git _vim/bundle/ropevim
 git submodule add https://github.com/vim-scripts/VOoM.git _vim/bundle/voom
 git submodule add https://github.com/vim-scripts/YankRing.vim.git _vim/bundle/yankring
-git submodule add https://github.com/dterei/VimCobaltColourScheme.git _vim/bundle/vimcobaltcolourscheme
+git submodule add https://github.com/vim-scripts/Rainbow-Parenthsis-Bundle _vim/bundle/rainbow-paren
+git submodule add https://github.com/dterei/VimCobaltColourScheme.git _vim/colors
 git submodule init
 git submodule update
 git submodule foreach git submodule init
