@@ -135,6 +135,10 @@ if [ -s "$HOME/.bashscripts/ps1_functions.sh" ]; then
     ps1_set --prompt ∫ --notime --noseparator --screen_identifer 'S\:\ '
 fi
 
+if [ -s "$HOME/.bashscripts/projcd.bash" ]; then
+    source "$HOME/.bashscripts/projcd.bash"
+fi
+
 if [ -f ~/perl5/perlbrew/etc/bashrc ]; then
     source ~/perl5/perlbrew/etc/bashrc
 fi

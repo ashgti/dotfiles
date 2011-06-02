@@ -5,7 +5,8 @@ function projcd {
       cd "${HOME}/Projects"
       return 0
     fi
-    
-    cd "$(find "${HOME}/Projects" -type d -maxdepth 2 -name $1)"
+    local dest=$(find "${HOME}/Projects" -type d -maxdepth 2 -name "$1" -print0)
+    eval "cd $dest"
     return 0
 }
+
