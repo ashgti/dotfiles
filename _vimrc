@@ -17,6 +17,7 @@ set virtualedit=onemore
 set lcs=tab:\ \ ,eol:$,trail:~,extends:>,precedes:<
 set novisualbell  " No blinking .
 set noerrorbells  " No noise.
+set t_vb=
 set laststatus=2  " Always show status line.
 
 " Use 4 spaces for tabs, turn on automatic indenting
@@ -111,11 +112,6 @@ map <leader>a :Ack<space>
 " Session saving
 set sessionoptions=blank,buffers,curdir,folds,help,resize,tabpages,winsize
 
-" Invisible characters *********************************************************
-set listchars=trail:.,tab:>-,eol:$
-set list
-:noremap ,i :set list!<CR> " Toggle invisible chars"
-
 " Omni Completion
 " *************************************************************
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
@@ -152,6 +148,11 @@ if has('gui_running')
     highlight SpellBad term=underline gui=undercurl guisp=Orange
 endif
 
+" Invisible characters *********************************************************
+set listchars=trail:.,tab:>-,eol:$
+set nolist
+:noremap <leader>i :set list!<CR> " Toggle invisible chars"
+
 map <leader>td <Plug>TaskList
 map <leader>m <Plug>MakeGreen
 
@@ -162,5 +163,13 @@ if has("autocmd")
   \ if line("'\"") > 0 && line ("'\"") <= line("$") |
   \   exe "normal g'\"" |
   \ endif
+
+  " Run the current file in an interpreter if it has a shebang
+  au BufEnter * if match(getline(1) , '^\#!') == 0 |
+  \ execute("set makeprg=" . fnameescape(getline(1)[2:] . " %")) |
+  \endif
 endif
+
+" <leader>r is a shortcut for make
+map <leader>r :make<CR>
 

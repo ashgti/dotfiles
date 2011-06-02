@@ -13,7 +13,7 @@ backtick 11 9999999 9999999     printf "\005-1="
 caption always "%{= kw}%?%-Lw%50L>%?%{=r}%n*%f %t%?(%u)%?%{-}%{= kw}%?%+Lw%?%11` %=%{= kw}%H"
 
 hardstatus alwayslastline
-hardstatus string '%{= gW} ~mc %{-}%{-r}%{= kw} %= %Y-%m-%d %0c:%s' 
+hardstatus string '%{= gW} ~jh %{-}%{-r}%{= kw} %= %Y-%m-%d %0c:%s' 
 
 termcapinfo xterm* ti@:ti@
 altscreen on

@@ -58,3 +58,9 @@
 [submodule "_vim/colors"]
 	path = _vim/colors
 	url = https://github.com/dterei/VimCobaltColourScheme.git
+[submodule "_vim/bundle/delimitMate"]
+	path = _vim/bundle/delimitMate
+	url = https://github.com/Raimondi/delimitMate.git
+[submodule "_vim/bundle/vim-racket"]
+	path = _vim/bundle/vim-racket
+	url = https://github.com/wlangstroth/vim-racket.git

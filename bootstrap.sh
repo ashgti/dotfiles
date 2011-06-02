@@ -19,6 +19,8 @@ git submodule add https://github.com/vim-scripts/VOoM.git _vim/bundle/voom
 git submodule add https://github.com/vim-scripts/YankRing.vim.git _vim/bundle/yankring
 git submodule add https://github.com/vim-scripts/Rainbow-Parenthsis-Bundle _vim/bundle/rainbow-paren
 git submodule add https://github.com/dterei/VimCobaltColourScheme.git _vim/colors
+git submodule add https://github.com/Raimondi/delimitMate.git _vim/bundle/delimitMate
+git submodule add https://github.com/wlangstroth/vim-racket.git _vim/bundle/vim-racket
 git submodule init
 git submodule update
 git submodule foreach git submodule init
