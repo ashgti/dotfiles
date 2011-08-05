@@ -115,7 +115,7 @@ if [ "$(uname)" = Darwin ]; then
     export PATH="/Users/john/Projects/rakudo/parrot_install/bin:${PATH}"
     export PATH="/Users/john/Projects/local/bin:/opt/local/bin:/opt/local/sbin:${PATH}"
     export PATH="/Users/john/.cabal/bin:${PATH}"
-    export PATH="$PATH:/Users/john/Projects/racket-5.1/bin"
+    export PATH="$PATH:/Users/john/Projects/racket/bin"
 
     export CPATH=/opt/local/include
     export LIBRARY_PATH=/opt/local/lib
@@ -144,11 +144,18 @@ if [ -f ~/perl5/perlbrew/etc/bashrc ]; then
 fi
 
 # ROS Setup
-if [ -f ~/Projects/ros/diamondback/setup.bash ]; then
+if [ -f ~/Projects/ros/setup.bash ]; then
+    source ~/Projects/ros/setup.bash
+elif [ -f ~/Projects/ros/diamondback/setup.bash ]; then
     source ~/Projects/ros/diamondback/setup.bash
 elif [ -f /opt/ros/diamondback/setup.bash ]; then
     source /opt/ros/diamondback/setup.bash
 fi
+
+if [ -d /opt/ghc7.0/bin ]; then
+    export PATH="$PATH:/opt/ghc7.0/bin"
+fi
+
 
 # Python interactive shell stuff
 PYTHONSTARTUP=~/.pythonrc

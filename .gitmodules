@@ -64,3 +64,6 @@
 [submodule "_vim/bundle/vim-racket"]
 	path = _vim/bundle/vim-racket
 	url = https://github.com/wlangstroth/vim-racket.git
+[submodule "_vim/bundle/rainbow-paren"]
+	path = _vim/bundle/rainbow-paren
+	url = https://github.com/vim-scripts/Rainbow-Parenthsis-Bundle
