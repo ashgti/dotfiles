@@ -1,0 +1,7 @@
+alias df='df -H'
+alias du1='du -ch --max-depth=1'
+alias duh='du -chs ./*'
+alias fn='find . -name'
+alias hi='history | tail -20'
+alias flushdns='sudo dscacheutil -flushcache'
+alias tickets="fossil ticket show"

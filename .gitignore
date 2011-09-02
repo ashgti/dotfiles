@@ -1,3 +1,4 @@
 .DS_Store
-_vim/.netrwhist
+_vim/.netrwhist*
 _vim/tmp
+

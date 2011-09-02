@@ -40,11 +40,10 @@ syntax on
 let mapleader = ","
 
 " Pathogen is for finding bundles
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+call pathogen#infect() 
 
 " Rainbow
-nmap <leader>R :RainbowParenthesesToggle<CR>
+nmap <leader>R :ToggleRainbowParenthesis<CR>
 
 map <leader>a :Ack<CR>
 map <leader>af :AckFile<CR>
@@ -58,6 +57,8 @@ map <leader>f :CommandT<CR>
 
 let g:pep8map='<leader>8'
 
+" MiniBufExplorer
+map <leader>b :MiniBufExplorer<CR>
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows= 1
 let g:miniBufExplMapCTabSwitchBufs = 1
@@ -78,6 +79,17 @@ cmap w!! w !sudo tee % >/dev/null
 
 " Toggle Pastemode
 set pastetoggle=<F2>
+
+" Undo File Stuff
+if exists("&undofile")
+    set undodir=~/.vim/tmp/undodir
+    set undofile
+endif
+
+" Backups
+set backupdir=~/.vim/tmp/backup/
+set directory=~/.vim/tmp/swap/
+set backup 
 
 " Make backspace work the way it should
 set backspace=2
@@ -130,14 +142,17 @@ set background=dark
 vnoremap < <gv
 vnoremap > >gv
 
-colorscheme cobalt
+set t_Co=256
+let g:molokai_original = 1
+colorscheme molokai
+
+set background=dark
 
 if has('gui_running')
     if has('mac')
         set guifont=Menlo:h14
         set fuoptions=maxvert,maxhorz
     endif
-    set background=dark
 
     set go-=T
     set go-=l

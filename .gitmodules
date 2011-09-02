@@ -67,3 +67,6 @@
 [submodule "_vim/bundle/rainbow-paren"]
 	path = _vim/bundle/rainbow-paren
 	url = https://github.com/vim-scripts/Rainbow-Parenthsis-Bundle
+[submodule "_vim/bundle/buftabs"]
+	path = _vim/bundle/buftabs
+	url = https://github.com/vim-scripts/buftabs.git

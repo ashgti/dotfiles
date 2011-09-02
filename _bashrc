@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 : ${HOME=~}
 : ${LOGNAME=$(id -un)}
 : ${UNAME=$(uname)}
@@ -5,158 +7,285 @@
 : ${HOSTFILE=~/.ssh/known_hosts}
 : ${INPUTRC=~/.inputrc}
 
+#---------------------------
+# Shell Options
+#---------------------------
 
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+# System bashrc
+test -r /etc/bashrc && . /etc/bashrc
 
-# If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+# Aliases
+source ~/.bash_aliases
 
-# don't put duplicate lines in the history. See bash(1) for more options
-# ... or force ignoredups and ignorespace
-HISTCONTROL=ignoredups:ignorespace
+# Notify immedetely
+set -o notify
 
-# append to the history file, don't overwrite it
-shopt -s histappend
+# Shell options
+shopt -s cdspell                    # Check cd spelling
+shopt -s extglob                    # Extended pattern matching
+shopt -s histappend                 # Append history on exit
+shopt -s hostcomplete               # Attempt to complete '@'
+shopt -s interactive_comments       # Allow comments in interactive
+shopt -u mailwarn                   # Don't tell me about mail, please.
+shopt -s no_empty_cmd_completion    # Don't complete on an empty line.
+shopt -s cdable_vars
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+unset MAILCHECK                     # Dont tell me about mail, please.
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
+#----------------------
+# PATH
+#----------------------
 
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+# test -d "$HOME/devel/bin" && PATH="$HOME/devel/bin:$PATH"
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
+#----------------------
+# Environment Config
+#----------------------
 
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color) color_prompt=yes;;
+case "$-" in
+    *i*) INTERACTIVE=yes ;;
+    *) unset INTERACTIVE ;;
 esac
 
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+case "$0" in
+    -*) LOGIN=yes ;;
+    *) unset LOGIN ;;
+esac
 
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
+# Enable UTF locale
+: ${LANG:="en_US.UTF-8"}
+: ${LANGUAGE:="en"}
+: ${LC_CTYPE:="en_US.UTF-8"}
+: ${LC_ALL:="en_US.UTF-8"}
+export LANG LANGUAGE LC_CTYPE LC_ALL
 
-# if [ "$color_prompt" = yes ]; then
-#     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-# else
-#     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-# fi
-# unset color_prompt force_color_prompt
-# 
-# # If this is an xterm set the title to user@host:dir
-# case "$TERM" in
-# xterm*|rxvt*)
-#     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-#     ;;
-# *)
-#     ;;
-# esac
+# Always use passive FTP
+: ${FTP_PASSIVE:=1}
+export FTP_PASSIVE
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
+# Some filetypes to ignore
+FIGNORE="~:CVS:#:.pyc:.swp:.swa"
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
+#HISTORY
+export HISTCONTROL="erasedups:ignoreboth"                 # Ignore space and duplicates 
+export HISTSIZE=10000
+export HISTFILESIZE=10000
+export HISTTIMEFORMAT="[%D %T]"
+export HISTIGNORE="fg*:bg*:history*"
+shopt -s cmdhist                                # Save multiline in one line
+shopt -s histreedit                             # Reedit failed substitution
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+#--------------------
+# Pager and editor
+#--------------------
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+HAVE_VIM=$(command -v vim)
+HAVE_GVIM=$(command -v gvim)
+HAVE_NANO=$(command -v nano)
+HAVE_MATE=$(command -v mate)
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
+# test -n "$HAVE_VIM" && EDITOR=vim || EDITOR=vi
+# test -n "$HAVE_VIM" && EDITOR=nano || EDITOR=vi
+# test -n "$HAVE_MATE" && EDITOR=mate || EDITOR=nano
+EDITOR=vim
+export EDITOR
 
 alias r='fc -s'
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ]; then
-      . /etc/bash_completion
+# PAGER
+if test -n "$(command -v less)" ; then
+    PAGER="less -FirSwX"
+    MANPAGER="less -FiRswX"
+else
+    PAGER=more
+    MANPAGER="$PAGER"
 fi
-if [ -f /opt/local/etc/bash_completion ]; then
-      . /opt/local/etc/bash_completion
+export PAGER MANPAGER
+
+# Ack
+ACK_PAGER="$PAGER"
+ACK_PAGER_COLOR="$PAGER"
+
+export CLICOLOR="yes"
+
+#-------------------
+# LS
+#-------------------
+
+LS_COMMON="-hBG"
+
+dircolors="$(type -P gdircolors dircolors | head -1)"
+test -n "$dircolors" && {
+    COLORS=/etc/DIR_COLORS
+    test -e "/etc/DIR_COLORS.$TERM"         && COLORS="/etc/DIR_COLORS.$TERM"
+    test -e "$HOME/.dircolors"              && COLORS="$HOME/.dircolors"
+    test ! -e "$COLORS"                     && COLORS=
+    eval `$dircolors --sh $COLORS`
+}
+unset dircolors
+
+test -n "$LS_COMMON" &&
+    alias ls="command ls $LS_COMMON"
+
+alias ll="ls -l"
+alias la="ls -a"
+alias l.="ls -d .*"
+alias dir="ls"
+
+
+
+#----------------------
+# Prompt 
+#----------------------
+
+source $HOME/.bashscripts/ps1_functions.sh
+
+#ps1_set --prompt ∫ --notime --noseparator
+ps1_set --prompt ∫ --notime 'S\:\ '
+
+#----------------------
+# Useful functions
+#----------------------
+
+push_ssh_cert() {
+    local _host
+    test -f ~/.ssh/id_dsa.pub || ssh-keygen -t dsa
+    for _host in "$@";
+    do
+        echo $_host
+        ssh $_host 'touch ~/.ssh/authorized_keys'
+        ssh $_host 'cat >> ~/.ssh/authorized_keys' < ~/.ssh/id_dsa.pub
+    done
+}
+
+extract () 
+{
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2)   tar xvjf $1        ;;
+            *.tar.gz)    tar xvzf $1     ;;
+            *.bz2)       bunzip2 $1       ;;
+            *.rar)       unrar x $1     ;;
+            *.gz)        gunzip $1     ;;
+            *.tar)       tar xvf $1        ;;
+            *.tbz2)      tar xvjf $1      ;;
+            *.tgz)       tar xvzf $1       ;;
+            *.zip)       unzip $1     ;;
+            *.Z)         uncompress $1  ;;
+            *.7z)        7z x $1    ;;
+            *)           echo "'$1' cannot be extracted via >extract<" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
+
+function ii()   # Get current host related info.
+{
+    echo -e "\nYou are logged on ${RED}$HOST"
+    echo -e "\nAdditionnal information:$NC " ; uname -a
+    echo -e "\n${RED}Users logged on:$NC " ; w -h
+    echo -e "\n${RED}Current date :$NC " ; date
+    echo -e "\n${RED}Machine stats :$NC " ; uptime
+}
+
+# -------------------------
+# Bash Completion 
+# -------------------------
+test -z "$BASH_COMPLETION" && {
+    bash=${BASH_VERSION%.*}; bmajor=${bash%.*}; bminor=${bash#*.}
+    test -n "$PS1" && test $bmajor -gt 1 && {
+        # search for a bash_completion file to source
+        for f in /usr/local/etc/bash_completion \
+            /usr/pkg/etc/bash_completion \
+            /opt/local/etc/bash_completion \
+            /etc/bash_completion \
+            ~/.bash_completion
+        do
+            test -f $f && {
+                . $f
+                break
+            }
+        done
+    }
+    unset bash bmajor bminor f
+}
+
+_expand() {
+    return 0
+}
+
+if [ -x $(which -s brew) ]; then
+    source `brew --prefix`/Library/Contributions/brew_bash_completion.sh
 fi
 
-if [ "$(uname)" = Darwin ]; then
-    export PATH="/Users/john/Projects/rakudo/parrot_install/bin:${PATH}"
-    export PATH="/Users/john/Projects/local/bin:/opt/local/bin:/opt/local/sbin:${PATH}"
-    export PATH="/Users/john/.cabal/bin:${PATH}"
-    export PATH="$PATH:/Users/john/Projects/racket/bin"
-
-    export CPATH=/opt/local/include
-    export LIBRARY_PATH=/opt/local/lib
-    export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:/usr/lib:/opt/local/lib
-
-    export GOROOT=/Users/john/Projects/go
-    export GOOS=darwin
-    export GOARCH=amd64
-    export GOBIN=$GOROOT/gobin
-    export PATH=$PATH:$GOBIN
-
-    export ROS_PACKAGE_PATH="${ROS_PACKAGE_PATH}:/Users/john/Projects/au-automow:/Users/john/Projects/wwoodall-ros-pkg:/Users/john/Projects/gps_umd:/Users/john/Projects/dynamic_voronoi"
+if [ -d $HOME/.cabal/bin ]; then
+    export PATH=$PATH:$HOME/.cabal/bin
 fi
 
-if [ -s "$HOME/.bashscripts/ps1_functions.sh" ]; then
-    source "$HOME/.bashscripts/ps1_functions.sh" 
-    ps1_set --prompt ∫ --notime --noseparator --screen_identifer 'S\:\ '
+#--------------------------
+# Mac Specific
+#--------------------------
+
+#if [ "$UNAME" = Darwin ]; then
+    # export PATH="/usr/local/share/python:/usr/local/bin:$PATH"
+    # export CPATH="/usr/local/include:$CPATH"
+    
+    # Python 2.7
+    # rm /usr/local/bin/python
+    # ln -s /usr/bin/python2.7 /usr/local/bin/python
+    # export PYTHONPATH="/Library/Python/2.7/site-packages:$PYTHONPATH"
+    
+    # Python 2.6
+    # rm /usr/local/bin/python
+    # ln -s /usr/bin/python2.6 /usr/local/bin/python
+    # export PYTHONPATH="/Library/Python/2.6/site-packages:$PYTHONPATH"
+    
+    # Python 3.2
+    # rm /usr/local/bin/python
+    # ln -s /usr/local/bin/python3.2 /usr/local/bin/python
+    # export PATH="/usr/local/Cellar/python3/3.2.1/bin:$PATH"
+    # export PYTHONPATH="/usr/local/lib/python:$PYTHONPATH"
+    # test -x /opt/local -a ! -L /opt/local && {
+    #     PORTS=/opt/local
+    # 
+    #     PATH="$PORTS/bin:$PORTS/sbin:$PATH"
+    #     MANPATH="$PORTS/share/man:$MANPATH"
+    # 
+    #     export CPATH=$PORTS/include
+    #     export LIBRARY_PATH=$PORTS/lib
+    #     export LD_LIBRARY_PATH=$PORTS/lib
+    #     export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:$PORTS/lib:/usr/local/lib:/usr/lib
+    # 
+    # }
+# fi
+
+# -------------------------
+# Closing Notes/User Specific
+# -------------------------
+
+# # Python interactive shell stuff
+# PYTHONSTARTUP=~/.pythonrc.py
+# export PYTHONSTARTUP
+
+# ROS Stuff
+# test -r $HOME/.rosrc && . $HOME/.rosrc
+
+# MORSE Stuff
+test -r $HOME/.morserc && . $HOME/.morserc
+
+# Tell me something nifty at login
+test -n "$INTERACTIVE" -a -n "$LOGIN" && {
+    uname -npsr
+    uptime 2> /dev/null
+}
+# export PATH="/usr/local/share/python:/usr/local/bin:$PATH"
+export PATH="/usr/local/bin:$PATH"
+export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig/:/usr/local/share/pkgconfig:$PKG_CONFIG_PATH"
+export PYTHONPATH="/usr/local/lib/python:/usr/local/lib/python2.7/site-packages:/usr/local/lib/python2.7/site_packages:$PYTHONPATH"
+# export PYTHONPATH="/Library/Python/2.7:/usr/local/lib/python:$PYTHONPATH"
+test -r $HOME/Projects/ros-eletric/setup.bash && source $HOME/Projects/ros-eletric/setup.bash
+
+if [ -f $HOME/perl5/perlbrew/etc/bashrc ]; then
+    . ~/perl5/perlbrew/etc/bashrc
 fi
-
-if [ -s "$HOME/.bashscripts/projcd.bash" ]; then
-    source "$HOME/.bashscripts/projcd.bash"
-fi
-
-if [ -f ~/perl5/perlbrew/etc/bashrc ]; then
-    source ~/perl5/perlbrew/etc/bashrc
-fi
-
-# ROS Setup
-if [ -f ~/Projects/ros/setup.bash ]; then
-    source ~/Projects/ros/setup.bash
-elif [ -f ~/Projects/ros/diamondback/setup.bash ]; then
-    source ~/Projects/ros/diamondback/setup.bash
-elif [ -f /opt/ros/diamondback/setup.bash ]; then
-    source /opt/ros/diamondback/setup.bash
-fi
-
-if [ -d /opt/ghc7.0/bin ]; then
-    export PATH="$PATH:/opt/ghc7.0/bin"
-fi
-
-
-# Python interactive shell stuff
-PYTHONSTARTUP=~/.pythonrc
-export PYTHONSTARTUP

@@ -3,7 +3,6 @@ git submodule add https://github.com/msanders/snipmate.vim.git _vim/bundle/snipm
 git submodule add https://github.com/tpope/vim-surround.git _vim/bundle/surround
 git submodule add https://github.com/tpope/vim-git.git _vim/bundle/git
 git submodule add https://github.com/ervandew/supertab.git _vim/bundle/supertab
-git submodule add https://github.com/sontek/minibufexpl.vim.git _vim/bundle/minibufexpl
 git submodule add https://github.com/wincent/Command-T.git _vim/bundle/command-t
 git submodule add https://github.com/kevinw/pyflakes-vim.git _vim/bundle/pyflakes
 git submodule add https://github.com/mileszs/ack.vim.git _vim/bundle/ack
@@ -17,10 +16,9 @@ git submodule add https://github.com/vim-scripts/The-NERD-tree.git _vim/bundle/n
 git submodule add https://github.com/sontek/rope-vim.git _vim/bundle/ropevim
 git submodule add https://github.com/vim-scripts/VOoM.git _vim/bundle/voom
 git submodule add https://github.com/vim-scripts/YankRing.vim.git _vim/bundle/yankring
-git submodule add https://github.com/vim-scripts/Rainbow-Parenthsis-Bundle _vim/bundle/rainbow-paren
-git submodule add https://github.com/dterei/VimCobaltColourScheme.git _vim/colors
 git submodule add https://github.com/Raimondi/delimitMate.git _vim/bundle/delimitMate
 git submodule add https://github.com/wlangstroth/vim-racket.git _vim/bundle/vim-racket
+git submodule add https://github.com/fholgado/minibufexpl.vim.git _vim/bundle/minibufexpl
 git submodule init
 git submodule update
 git submodule foreach git submodule init
