@@ -159,6 +159,12 @@ ps4_set()
 #
 ps1_set()
 {
-    PROMPT_COMMAND="ps1_update $@"
+    # This test is to see if your using Lion, it has a special command to keep the terminal
+    # up to date on which directory you where last in when you close the terminal.
+    if [[ $(type -t update_terminal_cwd) ]]; then
+        PROMPT_COMMAND="update_terminal_cwd; ps1_update $@"
+    else
+        PROMPT_COMMAND="ps1_update $@"
+    fi
 }
 

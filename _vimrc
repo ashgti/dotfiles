@@ -39,6 +39,8 @@ syntax on
 " Set leader to comma
 let mapleader = ","
 
+let g:pep8map='<leader>8'
+
 " Pathogen is for finding bundles
 call pathogen#infect() 
 
@@ -50,12 +52,10 @@ map <leader>af :AckFile<CR>
 
 " Set up command for NERDTree
 map <leader>n :NERDTreeToggle<CR>
-let NERDTreeIgnore=['.vim$','\~$', '.*\.pyc$']
+let NERDTreeIgnore=['.vim$','\~$', '.*\.pyc$', '.*\.o$', '.*\.hi$', '.*\.swp$']
 
 " CommandT options
 map <leader>f :CommandT<CR>
-
-let g:pep8map='<leader>8'
 
 " MiniBufExplorer
 map <leader>b :MiniBufExplorer<CR>
@@ -135,6 +135,8 @@ autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 " May require ruby compiled in
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete 
+
+let g:SuperTabDefaultCompletionType = "context"
 
 set background=dark
 
