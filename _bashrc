@@ -26,11 +26,9 @@ shopt -s extglob                    # Extended pattern matching
 shopt -s histappend                 # Append history on exit
 shopt -s hostcomplete               # Attempt to complete '@'
 shopt -s interactive_comments       # Allow comments in interactive
-shopt -u mailwarn                   # Don't tell me about mail, please.
 shopt -s no_empty_cmd_completion    # Don't complete on an empty line.
 shopt -s cdable_vars
 
-unset MAILCHECK                     # Dont tell me about mail, please.
 
 #----------------------
 # PATH
@@ -90,7 +88,7 @@ HAVE_MATE=$(command -v mate)
 EDITOR=vim
 export EDITOR
 
-alias r='fc -s'
+# alias r='fc -s'
 
 # PAGER
 if test -n "$(command -v less)" ; then
@@ -227,39 +225,6 @@ fi
 # Mac Specific
 #--------------------------
 
-#if [ "$UNAME" = Darwin ]; then
-    # export PATH="/usr/local/share/python:/usr/local/bin:$PATH"
-    # export CPATH="/usr/local/include:$CPATH"
-    
-    # Python 2.7
-    # rm /usr/local/bin/python
-    # ln -s /usr/bin/python2.7 /usr/local/bin/python
-    # export PYTHONPATH="/Library/Python/2.7/site-packages:$PYTHONPATH"
-    
-    # Python 2.6
-    # rm /usr/local/bin/python
-    # ln -s /usr/bin/python2.6 /usr/local/bin/python
-    # export PYTHONPATH="/Library/Python/2.6/site-packages:$PYTHONPATH"
-    
-    # Python 3.2
-    # rm /usr/local/bin/python
-    # ln -s /usr/local/bin/python3.2 /usr/local/bin/python
-    # export PATH="/usr/local/Cellar/python3/3.2.1/bin:$PATH"
-    # export PYTHONPATH="/usr/local/lib/python:$PYTHONPATH"
-    # test -x /opt/local -a ! -L /opt/local && {
-    #     PORTS=/opt/local
-    # 
-    #     PATH="$PORTS/bin:$PORTS/sbin:$PATH"
-    #     MANPATH="$PORTS/share/man:$MANPATH"
-    # 
-    #     export CPATH=$PORTS/include
-    #     export LIBRARY_PATH=$PORTS/lib
-    #     export LD_LIBRARY_PATH=$PORTS/lib
-    #     export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:$PORTS/lib:/usr/local/lib:/usr/lib
-    # 
-    # }
-# fi
-
 # -------------------------
 # Closing Notes/User Specific
 # -------------------------
@@ -269,7 +234,7 @@ fi
 # export PYTHONSTARTUP
 
 # ROS Stuff
-# test -r $HOME/.rosrc && . $HOME/.rosrc
+test -r $HOME/.rosrc && . $HOME/.rosrc
 
 # MORSE Stuff
 test -r $HOME/.morserc && . $HOME/.morserc
@@ -280,12 +245,16 @@ test -n "$INTERACTIVE" -a -n "$LOGIN" && {
     uptime 2> /dev/null
 }
 # export PATH="/usr/local/share/python:/usr/local/bin:$PATH"
-export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/bin:$PATH:$HOME/Projects/local/bin:/Applications/Arduino.app/Contents/Resources/Java/hardware/tools/avr/bin"
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig/:/usr/local/share/pkgconfig:$PKG_CONFIG_PATH"
 export PYTHONPATH="/usr/local/lib/python:/usr/local/lib/python2.7/site-packages:/usr/local/lib/python2.7/site_packages:$PYTHONPATH"
 # export PYTHONPATH="/Library/Python/2.7:/usr/local/lib/python:$PYTHONPATH"
-test -r $HOME/Projects/ros-eletric/setup.bash && source $HOME/Projects/ros-eletric/setup.bash
+# test -r $HOME/Projects/ros-eletric/setup.bash && source $HOME/Projects/ros-eletric/setup.bash
+export CPLUS_INCLUDE_PATH="/usr/local/include:$CPLUS_INCLUDE_PATH"
 
 if [ -f $HOME/perl5/perlbrew/etc/bashrc ]; then
     . ~/perl5/perlbrew/etc/bashrc
 fi
+
+export PERL5LIB=$HOME/Projects/local/lib/perl
+export ROS_OS_OVERRIDE=osxbrew:lion

@@ -33,6 +33,13 @@ set hlsearch
 set incsearch
 syntax on
 
+" MiniBufExplorer
+map <leader>b :MiniBufExplorer<CR>
+let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplMapWindowNavArrows= 1
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplModSelTarget = 1
+
 " Turn on line highlighting
 " set cursorline " Commented out due to poor performance
 
@@ -56,13 +63,6 @@ let NERDTreeIgnore=['.vim$','\~$', '.*\.pyc$', '.*\.o$', '.*\.hi$', '.*\.swp$']
 
 " CommandT options
 map <leader>f :CommandT<CR>
-
-" MiniBufExplorer
-map <leader>b :MiniBufExplorer<CR>
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows= 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1
 
 " Yankring
 let g:yankring_history_dir = '~/.vim/tmp/'
@@ -150,6 +150,8 @@ colorscheme molokai
 
 set background=dark
 
+setlocal spell spelllang=en_us
+
 if has('gui_running')
     if has('mac')
         set guifont=Menlo:h14
@@ -161,9 +163,9 @@ if has('gui_running')
     set go-=L
     set go-=r
     set go-=R
-
-    highlight SpellBad term=underline gui=undercurl guisp=Orange
 endif
+
+highlight SpellBad term=underline gui=undercurl guisp=Orange
 
 " Invisible characters *********************************************************
 set listchars=trail:.,tab:>-,eol:$

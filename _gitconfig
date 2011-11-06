@@ -3,3 +3,9 @@
 	email = ash@greaterthaninfinity.com
 [core]
 	editor = vim
+[push]
+	default = tracking
+[rerere]
+	enabled = true
+[merge]
+	stat = true

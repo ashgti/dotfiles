@@ -25,18 +25,24 @@
 
 ps1_identity()
 {
-  if [[ $UID -eq 0 ]]  ; then
-    printf "\[\033[31m\]\\\u\[\033[0m\]@\[\033[36m\]\\h\[\033[35m\]:\w\[\033[0m\] "
+  if [[ "$ZSH_NAME" == "zsh" ]] ; then
+      if [[ $UID -eq 0 ]]  ; then
+        printf "\033[31m%%n\033[0m@\033[36m%%M\033[35m:%%~\033[0m "
+      else
+        printf "\033[32m%%n\033[0m@\033[36m%%M\033[35m:%%~\033[0m "
+      fi
   else
-    printf "\[\033[32m\]\\\u\[\033[0m\]@\[\033[36m\]\\h\[\033[35m\]:\w\[\033[0m\] "
+      if [[ $UID -eq 0 ]]  ; then
+        printf "\[\033[31m\]\\\u\[\033[0m\]@\[\033[36m\]\\h\[\033[35m\]:\w\[\033[0m\] "
+      else
+        printf "\[\033[32m\]\\\u\[\033[0m\]@\[\033[36m\]\\h\[\033[35m\]:\w\[\033[0m\] "
+      fi
   fi
 }
 
 ps1_git()
 {
   local branch="" sha1="" line="" attr="" color=0
-
-  shopt -s extglob # Important, for our nice matchers :)
 
   if ! command -v git >/dev/null 2>&1 ; then
     printf " \033[1;37m\033[41m[git not found]\033[m "
@@ -69,8 +75,14 @@ ps1_git()
      ;;
   esac
 
-  if [[ $color -gt 0 ]] ; then
-    printf "\[\033[${attr}${color}m\](git:${branch}:$sha1)\[\033[0m\] "
+  if [[ "$ZSH_NAME" == "zsh" ]] ; then
+      if [[ $color -gt 0 ]] ; then
+        printf "\033[${attr}${color}m(git:${branch}:$sha1)\033[0m "
+      fi
+  else
+      if [[ $color -gt 0 ]] ; then
+        printf "\[\033[${attr}${color}m\](git:${branch}:$sha1)\[\033[0m\] "
+      fi
   fi
 }
 
@@ -89,6 +101,11 @@ ps1_update()
   local notime=0
   local screen_id=""
   local in_screen=""
+
+  if [[ "$ZSH_NAME" == "zsh" ]] ; then
+    separator="
+"
+  fi
 
   if [[ $UID -eq 0 ]] ; then
     prompt_char='#'
@@ -130,10 +147,18 @@ ps1_update()
       in_screen="$screen_id"
   fi
 
-  if [[ $notime -gt 0 ]] ; then
-      PS1="${in_screen}$(ps1_identity)$(ps1_git)$(ps1_rvm)${separator}${prompt_char} "
+  if [[ "$ZSH_NAME" == "zsh" ]] ; then
+      if [[ $notime -gt 0 ]] ; then
+          PS1="${in_screen}$(ps1_identity)$(ps1_git)$(ps1_rvm)${separator}${prompt_char} "
+      else
+          PS1="%T{%H:%M:%S} ${screen}$(ps1_identity)$(ps1_git)$(ps1_rvm)${separator}${prompt_char} "
+      fi
   else
-      PS1="\D{%H:%M:%S} ${screen}$(ps1_identity)$(ps1_git)$(ps1_rvm)${separator}${prompt_char} "
+      if [[ $notime -gt 0 ]] ; then
+          PS1="${in_screen}$(ps1_identity)$(ps1_git)$(ps1_rvm)${separator}${prompt_char} "
+      else
+          PS1="\D{%H:%M:%S} ${screen}$(ps1_identity)$(ps1_git)$(ps1_rvm)${separator}${prompt_char} "
+      fi
   fi
 }
 
@@ -161,10 +186,11 @@ ps1_set()
 {
     # This test is to see if your using Lion, it has a special command to keep the terminal
     # up to date on which directory you where last in when you close the terminal.
-    if [[ $(type -t update_terminal_cwd) ]]; then
+    if [ $(type -t update_terminal_cwd) ]; then
         PROMPT_COMMAND="update_terminal_cwd; ps1_update $@"
     else
         PROMPT_COMMAND="ps1_update $@"
     fi
 }
+
 
