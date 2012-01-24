@@ -7,6 +7,9 @@ set ruler
 " Set to not clear on exti
 set t_ti= t_te=
 
+" Set the encoding
+set encoding=utf-8
+
 " Show line numbers
 set number
 
@@ -20,13 +23,17 @@ set noerrorbells  " No noise.
 set t_vb=
 set laststatus=2  " Always show status line.
 
-" Use 4 spaces for tabs, turn on automatic indenting
-set tabstop=4
+" Use 2 spaces for tabs, turn on automatic indenting
+set tabstop=2
 set smarttab
-set shiftwidth=4
+set shiftwidth=2
 set autoindent
 set expandtab
 set backspace=start,indent
+
+" Set 4 spaces for python
+autocmd FileType python set tabstop=2
+autocmd FileType python set shiftwidth=2
 
 " Turn on highlighted search and syntax highlighting
 set hlsearch

@@ -5,3 +5,6 @@ alias fn='find . -name'
 alias hi='history | tail -20'
 alias flushdns='sudo dscacheutil -flushcache'
 alias tickets="fossil ticket show"
+alias m='mvim .'
+
+alias grep='grep -E'

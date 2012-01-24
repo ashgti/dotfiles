@@ -225,7 +225,7 @@ fi
 # Mac Specific
 #--------------------------
 
-# -------------------------
+#-------------------------
 # Closing Notes/User Specific
 # -------------------------
 
@@ -251,6 +251,8 @@ export PYTHONPATH="/usr/local/lib/python:/usr/local/lib/python2.7/site-packages:
 # export PYTHONPATH="/Library/Python/2.7:/usr/local/lib/python:$PYTHONPATH"
 # test -r $HOME/Projects/ros-eletric/setup.bash && source $HOME/Projects/ros-eletric/setup.bash
 export CPLUS_INCLUDE_PATH="/usr/local/include:$CPLUS_INCLUDE_PATH"
+
+export NODE_PATH="/usr/local/lib/node"
 
 if [ -f $HOME/perl5/perlbrew/etc/bashrc ]; then
     . ~/perl5/perlbrew/etc/bashrc
