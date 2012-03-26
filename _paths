@@ -1,0 +1,16 @@
+#!/usr/bin/sh
+#  Customize to your needs...
+# Basic path
+export PATH="/Users/john/perl5/perlbrew/bin:/Users/john/perl5/perlbrew/perls/perl-5.14.2/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/texbin:/Users/john/Projects/local/bin:$HOME/Projects/avr-gcc/bin"
+
+# PKG_CONFIG 
+export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig/:/usr/local/share/pkgconfig:$PKG_CONFIG_PATH"
+
+# Python Path
+export PYTHONPATH="/usr/local/lib/python:/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
+
+# RVM Path
+export PATH=$PATH:$HOME/.rvm/bin
+
+# Node Path
+export NODE_PATH="/usr/local/lib/node"

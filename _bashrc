@@ -244,19 +244,9 @@ test -n "$INTERACTIVE" -a -n "$LOGIN" && {
     uname -npsr
     uptime 2> /dev/null
 }
-# export PATH="/usr/local/share/python:/usr/local/bin:$PATH"
-export PATH="/usr/local/bin:$PATH:$HOME/Projects/local/bin:/Applications/Arduino.app/Contents/Resources/Java/hardware/tools/avr/bin"
-export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig/:/usr/local/share/pkgconfig:$PKG_CONFIG_PATH"
-export PYTHONPATH="/usr/local/lib/python:/usr/local/lib/python2.7/site-packages:/usr/local/lib/python2.7/site_packages:$PYTHONPATH"
-# export PYTHONPATH="/Library/Python/2.7:/usr/local/lib/python:$PYTHONPATH"
+
+source ~/.paths
 # test -r $HOME/Projects/ros-eletric/setup.bash && source $HOME/Projects/ros-eletric/setup.bash
-export CPLUS_INCLUDE_PATH="/usr/local/include:$CPLUS_INCLUDE_PATH"
 
-export NODE_PATH="/usr/local/lib/node"
-
-if [ -f $HOME/perl5/perlbrew/etc/bashrc ]; then
-    . ~/perl5/perlbrew/etc/bashrc
-fi
-
-export PERL5LIB=$HOME/Projects/local/lib/perl
 export ROS_OS_OVERRIDE=osxbrew:lion
+

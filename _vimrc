@@ -158,6 +158,7 @@ colorscheme molokai
 set background=dark
 
 setlocal spell spelllang=en_us
+set nospell
 
 if has('gui_running')
     if has('mac')

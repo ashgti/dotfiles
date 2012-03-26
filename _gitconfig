@@ -9,3 +9,5 @@
 	enabled = true
 [merge]
 	stat = true
+[color]
+	ui = auto
