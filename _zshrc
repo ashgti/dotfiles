@@ -20,21 +20,36 @@ ZSH_THEME="bira"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment following line if you want red dots to be displayed while waiting for completion
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git battery osx ruby textmate brew github perl pip python)
+plugins=(git osx brew python terminalapp rvm vi-mode history-substring-search sublime)
 
 source $ZSH/oh-my-zsh.sh
 
-source ~/.bash_aliases
+source ~/.sh_aliases
 source ~/.paths
 
 unsetopt share_history
 
+setopt nohashdirs
+
+# Speed up autocompletion
+zstyle ':completion:*' accept-exact '*(N)'
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+zstyle ':completion:*' tag-order '! users' -
+
+setopt auto_cd # Type 'dir' instead of 'cd dir'
+setopt autopushd # cd acts like pushd
+setopt pushdminus # Swap cd +1 and cd -1
+setopt EXTENDED_HISTORY # Store time in history
+setopt HIST_VERIFY
+
 export ROS_NO_SUDO_PIP=True
 export ROS_OS_OVERRIDE=osxbrew:lion
 
-export EDITOR="subl"
+export EDITOR="vim"
 
+source ~/.profile

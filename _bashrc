@@ -15,7 +15,7 @@
 test -r /etc/bashrc && . /etc/bashrc
 
 # Aliases
-source ~/.bash_aliases
+source ~/.sh_aliases
 
 # Notify immedetely
 set -o notify
@@ -250,3 +250,4 @@ source ~/.paths
 
 export ROS_OS_OVERRIDE=osxbrew:lion
 
+source ~/.profile
