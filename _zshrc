@@ -38,6 +38,8 @@ zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 zstyle ':completion:*' tag-order '! users' -
+zstyle ':completion:*' hosts off
+
 
 bindkey '^r' history-incremental-search-backward
 
@@ -53,3 +55,4 @@ export ROS_OS_OVERRIDE=osxbrew:lion
 export EDITOR="vim"
 
 source ~/.profile
+source ~/.rvm/scripts/rvm
