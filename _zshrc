@@ -38,6 +38,8 @@ zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 zstyle ':completion:*' tag-order '! users' -
+zstyle ':completion:*' hosts off
+
 
 setopt auto_cd # Type 'dir' instead of 'cd dir'
 setopt autopushd # cd acts like pushd
