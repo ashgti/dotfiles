@@ -39,8 +39,6 @@ zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 zstyle ':completion:*' tag-order '! users' -
 
-bindkey '^r' history-incremental-search-backward
-
 setopt auto_cd # Type 'dir' instead of 'cd dir'
 setopt autopushd # cd acts like pushd
 setopt pushdminus # Swap cd +1 and cd -1
@@ -53,3 +51,11 @@ export ROS_OS_OVERRIDE=osxbrew:lion
 export EDITOR="vim"
 
 source ~/.profile
+source ~/.rvm/scripts/rvm
+
+# Keybindings
+#
+bindkey -M viins 'jj' vi-cmd-mode
+
+# Reverse history lookup with Ctrl-r
+bindkey '^r' history-incremental-search-backward

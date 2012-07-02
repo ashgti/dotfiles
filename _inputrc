@@ -6,10 +6,32 @@ set show-all-if-ambiguous on
 set show-all-if-unmodified on
 set visible-stats on
 
-set editing-mode emacs
+set editing-mode vi
+set keymap vi
 
 set meta-flag on
 set input-meta on
 set output-meta on
 set convert-meta off
+
+"\e[1~": beginning-of-line
+"\e[4~": end-of-line
+"\e[5~": beginning-of-history
+"\e[6~": end-of-history
+"\e[3~": delete-char
+"\e[2~": quoted-insert
+"\e[5C": forward-word
+"\e[5D": backward-word
+"\e\e[C": forward-word
+"\e\e[D": backward-word
+
+$if mode=vi
+  set keymap vi-command
+  "gg": beginning-of-history
+  "G": end-of-history
+  set keymap vi-insert       #notice how the "jj" movement is
+  "jj": vi-movement-mode     #after 'set keymap vi-insert'?
+  "\C-w": backward-kill-word
+  "\C-p": history-search-backward
+$endif
 
