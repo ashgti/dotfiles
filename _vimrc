@@ -140,8 +140,9 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
-" May require ruby compiled in
-autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete 
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 
 let g:SuperTabDefaultCompletionType = "context"
 
@@ -200,3 +201,6 @@ endif
 " <leader>r is a shortcut for make
 map <leader>r :make<CR>
 
+let g:easytags_cmd = '/usr/local/bin/ctags'
+let g:easytags_file = '~/.vim/tmp/tags'
+let g:easytags_updatetime_min = 300
